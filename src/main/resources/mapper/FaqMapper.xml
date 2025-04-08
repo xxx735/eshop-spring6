@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
 <mapper namespace="com.xhxy.eshop.mapper.FaqMapper">
-
-    <select id="findAll" resultType="com.xhxy.eshop.entity.Faq">
-        select id, question, answer from faq
-    </select>
-
-    <!-- 定义缓存，使用FIFO清除算法，缓存刷新间隔为600秒，最多缓存64项，只读缓存 -->
-    <cache eviction="FIFO" flushInterval="600000" size="64" readOnly="true" />
-
+	
+	<select id="findAll" resultType="com.xhxy.eshop.entity.Faq">
+		select id, question, answer from faq		
+	</select>
+	
+	<!-- 定义缓存，使用FIFO清除算法，缓存刷新间隔为600秒，最多缓存64项，只读缓存 -->
+	<cache eviction="FIFO" flushInterval="600000" size="64" readOnly="true" />
 </mapper>

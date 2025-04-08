@@ -19,7 +19,12 @@
         <!-- 指定MyBatis全局配置文件（可选） -->
         <!-- <property name="configLocation" value="classpath:mybatis-config.xml"/>-->
         <!-- 指定Mapper XML文件位置 -->
-        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mapper/*.xml</value>
+                <value>classpath*:com/xhxy/eshop/mapper/*.xml</value>
+            </array>
+        </property>
     </bean>
 
     <!-- 3. 自动扫描Mapper接口 -->

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.CategoryMapper">
+	
+	<select id="findById" resultMap="categoryMap">
+		select * from category where id = #{id}		
+	</select>
+	
+	<select id="findAll" resultMap="categoryMap">
+		select * from category		
+	</select>
+	
+	<select id="findTopCategory" resultMap="categoryMap">
+		select * from category where grade = 0		
+	</select>
+	
+	<resultMap type="com.xhxy.eshop.entity.Category" id="categoryMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="grade" property="grade"/>
+		<result column="icon" property="icon"/>
+		<collection column="id" property="children" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.Category"
+			select="com.xhxy.eshop.mapper.CategoryMapper.findChildCategory"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<select id="findChildCategory" resultType="com.xhxy.eshop.entity.Category">
+		select * from category where parent = #{parentId}
+	</select>	
+	
+</mapper>

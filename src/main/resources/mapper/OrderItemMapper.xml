@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.OrderItemMapper">
+	
+	<select id="findByOrderId" resultMap="orderItemMap">
+		select * from orderitem where order_id = #{orderId}		
+	</select>
+	<resultMap type="com.xhxy.eshop.entity.OrderItem" id="orderItemMap">
+		<id column="id" property="id"/>
+		<result column="quantity" property="quantity"/>
+		<result column="total" property="total"/>
+		<association property="product" column="product_id"
+			javaType="com.xhxy.eshop.entity.Product" 
+			select="com.xhxy.eshop.mapper.ProductMapper.findById"
+			fetchType="lazy"/>
+		<association property="order" column="order_id"
+			javaType="com.xhxy.eshop.entity.Order" 
+			select="com.xhxy.eshop.mapper.OrderMapper.findById"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<insert id="save">
+		insert into orderitem(product_id,quantity,order_id,total) values(#{product.id},#{quantity},#{order.id},#{total})	
+	</insert>
+	
+	<insert id="batchSave" parameterType="java.util.List" useGeneratedKeys="false">
+		insert into orderitem(product_id,quantity,order_id,total) values
+		<foreach collection="list" item="orderItem" index="index" separator=",">
+        (
+			#{orderItem.product.id}, #{orderItem.quantity},
+			#{orderItem.order.id},#{orderItem.total}
+         )
+      </foreach >
+	</insert>
+	
+</mapper>

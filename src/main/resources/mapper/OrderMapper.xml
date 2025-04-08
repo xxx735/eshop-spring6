@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.OrderMapper">
+	
+	<select id="getByUserId" resultMap="orderMap">
+		select * from orders where user_id = #{userId}		
+	</select>
+	<select id="findById" resultMap="orderMap">
+		select * from orders where id = #{id}
+	</select>
+	
+	<resultMap type="com.xhxy.eshop.entity.Order" id="orderMap">
+		<id column="id" property="id"/>
+		<result column="createtime" property="createTime"/>
+		<result column="total" property="total"/>
+		<result column="status" property="status"/>
+		<!-- 注意：association 要在 collection的上面 -->
+		<association column="user_id" property="user" 
+			javaType="com.xhxy.eshop.entity.User" 
+			select="com.xhxy.eshop.mapper.UserMapper.findById"
+			fetchType="lazy"/>
+		<association column="address_id" property="address" 
+			javaType="com.xhxy.eshop.entity.Address" 
+			select="com.xhxy.eshop.mapper.AddressMapper.findById"
+			fetchType="lazy"/>
+		<collection column="id" property="orderItemList" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.OrderItem" 
+			select="com.xhxy.eshop.mapper.OrderItemMapper.findByOrderId"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into orders(user_id,address_id,total,status,createtime)
+		values(#{user.id},#{address.id},#{total},#{status},#{createTime})
+	</insert>
+</mapper>

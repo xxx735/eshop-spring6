@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.UserMapper">
+
+	<select id="findPasswordById" resultType="string">
+		select password from user where id = #{id}	
+	</select>
+	<select id="findById" resultMap="userMap">
+		select * from user where id = #{id}
+	</select>
+	
+	<select id="login" resultType="integer">
+		<!-- select id from user where username = #{param1} and password = #{param2} -->
+		select id from user where username = #{username} and password = #{password}
+	</select>
+	
+	<resultMap type="com.xhxy.eshop.entity.User" id="userMap">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="email" property="email"/>
+		<result column="phone" property="phone"/>
+		<result column="avatar" property="avatar"/>
+		<discriminator javaType="int" column="user_type">
+			<!-- 当辨别者字段为1时，代表该记录对应admin实例 -->
+			<case value="1" resultMap="adminMap">
+			</case>
+		</discriminator>
+	</resultMap>
+	
+	<resultMap type="com.xhxy.eshop.entity.Admin" id="adminMap" extends="userMap">
+		<result column="department" property="department"/>
+	</resultMap>
+	
+	<insert id="addUser">
+		insert into user(username,password,phone,email,avatar) values(#{username},#{password},#{phone},#{email},#{avatar})
+	</insert>
+	
+	<update id="update">
+		update user 
+		<!-- set元素可以去除多余的逗号 -->
+		<set>
+			username=#{username}, 
+			<!-- 当password不为null，增加对password的更新 -->
+			<if test="password!=null">password=#{password}, </if>
+			phone=#{phone},email=#{email}, 
+			<!-- 当avatar不为null，增加对avatar的更新 -->
+			<if test="avatar != null">avatar=#{avatar} </if>
+		</set> 
+		 where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from address where id = #{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.CartItemMapper">
+	
+	<select id="findById" resultMap="cartItemMap">
+		select * from cartitem where id = #{id}		
+	</select>
+	<select id="findByCartId" resultMap="cartItemMap">
+		select * from cartitem where cart_id = #{cartId}		
+	</select>
+	<resultMap type="com.xhxy.eshop.entity.CartItem" id="cartItemMap">
+		<id column="id" property="id"/>
+		<result column="quantity" property="quantity"/>
+		<result column="total" property="total"/>
+		<association property="product" column="product_id"
+			javaType="com.xhxy.eshop.entity.Product" 
+			select="com.xhxy.eshop.mapper.ProductMapper.findById"
+			fetchType="lazy"/>
+		<association property="cart" column="cart_id"
+			javaType="com.xhxy.eshop.entity.Cart" 
+			select="com.xhxy.eshop.mapper.CartMapper.findById"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<select id="findByCartIdAndProductId" resultType="integer">
+		select id from cartitem where cart_id = #{cartId} and product_id = #{productId}
+	</select>
+	
+	<insert id="add">
+		insert into cartitem(product_id,quantity,total,cart_id) values(#{product.id},#{quantity},#{total},#{cartId})	
+	</insert>
+	
+	<delete id="deleteByCartId">
+		delete from cartitem where cart_id = #{cartId}
+	</delete>
+	
+	<update id="update">
+		update cartitem set quantity = #{quantity}, total = #{total} where id = #{cartItemId}
+	</update>
+	
+</mapper>

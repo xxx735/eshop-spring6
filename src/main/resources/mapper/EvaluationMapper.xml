@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.EvaluationMapper">
+	
+	<select id="findByProductId" resultMap="evaluationMap">
+		select * from evaluation where product_id = #{productId}
+	</select>
+	<resultMap type="com.xhxy.eshop.entity.Evaluation" id="evaluationMap">
+		<id column="id" property="id"/>
+		<result column="content" property="content"/>
+		<result column="createtime" property="createTime"/>
+		<association property="user" column="user_id"
+			javaType="com.xhxy.eshop.entity.User" 
+			select="com.xhxy.eshop.mapper.UserMapper.findById"
+			fetchType="lazy"/>
+		<association property="product" column="product_id"
+			javaType="com.xhxy.eshop.entity.Product" 
+			select="com.xhxy.eshop.mapper.ProductMapper.findById"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	
+</mapper>

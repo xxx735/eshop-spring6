@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.BlogMapper">
+	
+	<select id="findAll" resultMap="blogMap">
+		select * from blog
+	</select>
+	
+	<select id="findByPage" resultMap="blogMap">
+		select * from blog
+	</select>
+	
+	<select id="findById" resultMap="blogMap">
+		select * from blog where id = #{id}
+	</select>
+	<resultMap type="com.xhxy.eshop.entity.Blog" id="blogMap">
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="pic" property="pic"/>
+		<result column="createtime" property="createTime"/>
+		<!-- 注意：association 要在 collection的上面 -->
+		<!-- 提交的管理员 -->
+		<association property="admin" column="admin_id"
+			javaType="com.xhxy.eshop.entity.Admin" 
+			select="com.xhxy.eshop.mapper.UserMapper.findById"
+			fetchType="lazy"/>
+		<!-- 对该blog的所有评论 -->
+		<collection column="id" property="commentList" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.Comment" 
+			select="com.xhxy.eshop.mapper.CommentMapper.findByBlogId"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<select id="findLatestBlog" resultType="com.xhxy.eshop.entity.Blog">
+		select * from blog order by createtime desc limit #{n}
+	</select>
+	
+	<!-- 定义缓存，使用FIFO清除算法，缓存刷新间隔为600秒，最多缓存64项，只读缓存 -->
+	<cache eviction="FIFO" flushInterval="600000" size="64" readOnly="true" />
+</mapper>

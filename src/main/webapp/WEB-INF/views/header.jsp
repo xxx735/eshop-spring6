@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
       
   <div id="ht-preloader">
-    <div class="loader clear-loader"> <img class="img-fluid" src="/assets/images/loader.gif" alt=""> </div>
+    <div class="loader clear-loader"> <img class="img-fluid" src="${pageContext.request.contextPath}/assets/images/loader.gif" alt=""> </div>
   </div>
   
   <!--header start-->
@@ -16,22 +16,22 @@
                 
                 <div class="lng_dropdown">
                   <select name="countries" class="custome_select">
-                    <option value='cn' data-image="/assets/images/cn.png" data-title="France">中文</option>
-                    <option value='en' data-image="/assets/images/eng.png" data-title="English">英文</option>
+                    <option value='cn' data-image="${pageContext.request.contextPath}/assets/images/cn.png" data-title="France">中文</option>
+                    <option value='en' data-image="${pageContext.request.contextPath}/assets/images/eng.png" data-title="English">英文</option>
                   </select>
                 </div>
               </div>
             </div>
             <ul class="header_list">
               <c:choose>
-				   <c:when test="${username == null}">
-				      <li><a href="user?method=login"><i class="icon fa fa-user"></i><span>登录</span></a></li>
-				      <li><a href="signup.jsp"><i class="icon fa fa-user-plus"></i><span>注册</span></a></li>
+				   <c:when test="${userName == null}">
+				      <li><a href="${pageContext.request.contextPath}/user/login"><i class="icon fa fa-user"></i><span>登录</span></a></li>
+				      <li><a href="${pageContext.request.contextPath}/user/signup"><i class="icon fa fa-user-plus"></i><span>注册</span></a></li>
 				   </c:when>
 				   <c:otherwise>
-				   		<li><a href="account"><i class="icon fa fa-user"></i><span>${username}</span></a></li>
+				   		<li><a href="account"><i class="icon fa fa-user"></i><span>${userName}</span></a></li>
               			<li><a href="cart?method=view&id=${id}"><i class="icon fa fa-shopping-cart"></i><span>购物车</span></a></li>
-				        <li><a href="user?method=logout"><i class="icon fa fa-power-off"></i><span>退出</span></a></li>
+				        <li><a href="${pageContext.request.contextPath}/user/logout"><i class="icon fa fa-power-off"></i><span>退出</span></a></li>
 				   </c:otherwise>
 		        </c:choose>
             </ul>
@@ -42,7 +42,7 @@
     <div class="py-md-4 py-4">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-12 col-lg-3 d-none d-md-flex align-items-center"> <a class="navbar-brand logo d-none d-lg-block" href="index.html"> <img class="img-fluid" src="/assets/images/logo3.png" alt=""> </a> </div>
+          <div class="col-md-12 col-lg-3 d-none d-md-flex align-items-center"> <a class="navbar-brand logo d-none d-lg-block" href="index.html"> <img class="img-fluid" src="assets/images/logo3.png" alt=""> </a> </div>
           <div class="col-md-12 col-lg-9 col-sm-12 col-12">
             <div class="right-nav align-items-center d-flex justify-content-end">
               <form class="form-inline w-100">
@@ -65,14 +65,14 @@
         <div class="row m-0"> 
           <!--menu start-->
           <div class="col p-0">
-            <nav class="navbar navbar-expand-lg navbar-light position-static"> <a class="navbar-brand logo d-lg-none" href="index.html"> <img class="img-fluid" src="/assets/images/logo3.png" alt=""> </a>
+            <nav class="navbar navbar-expand-lg navbar-light position-static"> <a class="navbar-brand logo d-lg-none" href="index.html"> <img class="img-fluid" src="assets/images/logo3.png" alt=""> </a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item"> <a class="nav-link active" href="index">首页</a></li>
                   <li class="nav-item"> <a class="nav-link" href="category?method=all">分类商品</a></li>
                   <li class="nav-item"> <a class="nav-link" href="miaosha.jsp">秒杀</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="blog">好物推荐</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="blog/list">好物推荐</a></li>
                   <li class="nav-item"> <a class="nav-link" href="faq">常见问题</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> </a></li>
                 </ul>

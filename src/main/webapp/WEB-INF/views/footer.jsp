@@ -7,7 +7,7 @@
 	  <div class="container">
 	    <div class="row">
 	      <div class="col-12 col-lg-4"> <a class="footer-logo text-white h2 mb-0" href="index.html">
-	              <img class="img-fluid" src="/assets/images/logo3.png" alt="">
+	              <img class="img-fluid" src="${pageContext.request.contextPath}/assets/images/logo3.png" alt="">
 	            </a>
 	        <p class="my-3 text-muted pr-6">本网站是国内知名的购物网站，口碑良好，质美价廉.</p>
 	        <ul class="list-inline mb-0">
@@ -127,18 +127,18 @@
 	<!--back-to-top end-->
 
 	<!-- inject js start -->
-	<script src="/assets/js/jquery-3.5.1.min.js"></script>
-	<script src="/assets/js/popper.min.js"></script> 
-	<script src="/assets/js/bootstrap.min.js"></script> 
-	<script src="/assets/js/owl.carousel.min.js"></script> 
-	<script src="/assets/js/light-slider.js"></script> 
-	<script src="/assets/js/parallax.js"></script> 
-	<script src="/assets/js/magnific-popup.min.js"></script> 
-	<script src="/assets/js/jquery.countdown.min.js"></script> 
-	<script src="/assets/js/jquery.dd.min.js"></script> 
-	<script src="/assets/js/validator.js"></script> 
-	<script src="/assets/js/wow.js"></script> 
-	<script src="/assets/js/jquery.elevatezoom.js"></script> 
-	<script src="/assets/js/theme-script.js"></script> 
+	<script src="${pageContext.request.contextPath}/assets/js/jquery-3.5.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/popper.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/light-slider.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/parallax.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.countdown.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.dd.min.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/validator.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/wow.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/jquery.elevatezoom.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/theme-script.js"></script>
 	<!-- inject js end -->
   <!--footer end--> 

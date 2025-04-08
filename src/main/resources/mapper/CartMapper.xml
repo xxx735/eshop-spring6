@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.CartMapper">
+	
+	<select id="findByUserId" resultMap="cartMap">
+		select * from cart where user_id = #{userId}		
+	</select>
+	<select id="findById" resultMap="cartMap">
+		select * from cart where id = #{id}
+	</select>
+	
+	<resultMap type="com.xhxy.eshop.entity.Cart" id="cartMap">
+		<id column="id" property="id"/>
+		<result column="total" property="total"/>
+		<!-- 注意：association 要在 collection的上面 -->
+		<association column="user_id" property="user" 
+			javaType="com.xhxy.eshop.entity.User" 
+			select="com.xhxy.eshop.mapper.UserMapper.findById"
+			fetchType="lazy"/>
+		<collection column="id" property="cartItemList" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.CartItem" 
+			select="com.xhxy.eshop.mapper.CartItemMapper.findByCartId"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<update id="updateTotal">
+		update cart set total = #{cartTotal} where id = #{cartId}
+	</update>
+	
+</mapper>

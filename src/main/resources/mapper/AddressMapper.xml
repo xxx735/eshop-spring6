@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.AddressMapper">
+
+	<select id="findByUserId" resultType="com.xhxy.eshop.entity.Address">
+		select * from address where user_id = #{userId}	
+	</select>
+	<select id="findById" resultType="com.xhxy.eshop.entity.Address">
+		select * from address where id = #{id}
+	</select>
+	
+	<insert id="add">
+		insert into address(consigneeName,consigneeAddress,consigneePhone,postcode,user_id)
+		values(#{consigneeName},#{consigneeAddress},#{consigneePhone},#{postcode},#{user.id})
+	</insert>
+	
+	<update id="update">
+		update address set consigneeName=#{consigneeName},
+			consigneeAddress=#{consigneeAddress},consigneePhone=#{consigneePhone},postcode=#{postcode}
+			 where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from address where id = #{id}
+	</delete>
+	
+</mapper>

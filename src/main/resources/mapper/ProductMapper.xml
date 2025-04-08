@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.ProductMapper">
+	
+	<select id="findById" resultMap="productMap">
+		select * from product where id = #{id}		
+	</select>
+	
+	<resultMap type="com.xhxy.eshop.entity.Product" id="productMap">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="brief" property="brief"/>
+		<result column="detail" property="detail"/>
+		<result column="stock" property="stock"/>
+		<result column="price" property="price"/>
+		<result column="original_price" property="originalPrice"/>
+		<result column="pic" property="pic"/>
+		<result column="pic2" property="pic2"/>
+		<!-- 注意：association 要在 collection的上面 -->
+		<association column="category_id" property="category" 
+			javaType="com.xhxy.eshop.entity.Category" 
+			select="com.xhxy.eshop.mapper.CategoryMapper.findById"
+			fetchType="lazy"/>
+			
+		<collection column="id" property="pictureList" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.Picture" 
+			select="com.xhxy.eshop.mapper.PictureMapper.findByProductId"
+			fetchType="lazy"/>
+			
+		<collection column="id" property="evaluationList" 
+			javaType="ArrayList"
+			ofType="com.xhxy.eshop.entity.Evaluation" 
+			select="com.xhxy.eshop.mapper.EvaluationMapper.findByProductId"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	
+	<select id="findListByCategoryId" resultMap="productMap">
+		select * from product where category_id = #{categoryId}
+	</select>
+	
+	<select id="findAll" resultMap="productMap">
+		select * from product
+	</select>
+	
+	<select id="findHot" resultMap="productMap">
+		select * from product where hot = 1 limit #{n}
+	</select>
+	
+	<select id="findLatest" resultMap="productMap">
+		select * from product where latest = 1 limit #{n}
+	</select>
+	
+	<select id="findByKeywords" resultMap="productMap">
+		select * from product
+		<!-- where元素可以去除查询条件中多余的and，or等运算符 -->
+		<where>
+			<!-- 当name字段不为null时，增加根据name查询的条件 -->
+			<if test="name != null">
+				name like concat('%',#{name},'%')
+			</if>
+			<!-- 当brief字段不为null时，增加根据brief查询的条件 -->
+			<if test="brief != null">
+				or brief like concat('%',#{brief},'%')
+			</if>
+			<!-- 当detail字段不为null时，增加根据detail查询的条件 -->
+			<if test="detail != null">
+				or detail like concat('%',#{detail},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 以上查询的分页 -->
+	<select id="findListByCategoryIdPage" resultMap="productMap">
+		select * from product where category_id = #{categoryId}
+	</select>
+	
+	<select id="findAllPage" resultMap="productMap">
+		select * from product
+	</select>
+	
+	<select id="findByKeywordsPage" resultMap="productMap">
+		select * from product
+		<!-- where元素可以去除查询条件中多余的and，or等运算符 -->
+		<where>
+			<!-- 当name字段不为null时，增加根据name查询的条件 -->
+			<if test="name != null">
+				name like concat('%',#{name},'%')
+			</if>
+			<!-- 当brief字段不为null时，增加根据brief查询的条件 -->
+			<if test="brief != null">
+				or brief like concat('%',#{brief},'%')
+			</if>
+			<!-- 当detail字段不为null时，增加根据detail查询的条件 -->
+			<if test="detail != null">
+				or detail like concat('%',#{detail},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 定义缓存，使用LRU清除算法，缓存刷新间隔为30秒，最多缓存128项，只读缓存 -->
+	<cache eviction="LRU" flushInterval="30000" size="128" readOnly="true" />
+</mapper>

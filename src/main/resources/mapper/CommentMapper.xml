@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 根元素是mapper，该元素的namespace属性值相当于该mapper的唯一标识 -->	
+<mapper namespace="com.xhxy.eshop.mapper.CommentMapper">
+	
+	<select id="findById" resultMap="commentMap">
+		select * from comment where id = #{id}
+	</select>
+	<resultMap type="com.xhxy.eshop.entity.Comment" id="commentMap">
+		<id column="id" property="id"/>
+		<result column="content" property="content"/>
+		<result column="createtime" property="createTime"/>
+		<association property="user" column="user_id"
+			javaType="com.xhxy.eshop.entity.User" 
+			select="com.xhxy.eshop.mapper.UserMapper.findById"
+			fetchType="lazy"/>
+		<association property="blog" column="blog_id"
+			javaType="com.xhxy.eshop.entity.Blog" 
+			select="com.xhxy.eshop.mapper.BlogMapper.findById"
+			fetchType="lazy"/>
+	</resultMap>
+	
+	<select id="findByBlogId" resultMap="commentMap">
+		select * from comment where blog_id = #{blogId}
+	</select>
+	
+	<insert id="save">
+		insert into comment(content,createtime,blog_id,user_id) value(#{content},#{createTime},#{blog.id},#{user.id})
+	</insert>
+	
+</mapper>
