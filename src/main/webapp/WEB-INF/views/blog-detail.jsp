@@ -95,16 +95,16 @@
 	              </ul>
 	          <div class="post-comments mt-8 bg-light-4 rounded p-5">
 	            <c:choose>
-				   <c:when test="${username == null}">
+				   <c:when test="${userName == null}">
 				      <div class="mb-5">
-			              <h5><a href="${pageContext.request.contextPath}/user?method=login">登录</a>后，方可评论</h5>
+			              <h5><a href="${pageContext.request.contextPath}/user/login">登录</a>后，方可评论</h5>
 			          </div>
 				   </c:when>
 				   <c:otherwise>
 			          <div class="mb-5">
 			             <h5>我要评论</h5>
 			          </div>
-			          <form class="row" method="post" action="blog?method=saveComment">
+			          <form class="row" method="post" action="${pageContext.request.contextPath}/blog/saveComment">
 			             <input type="hidden" name="blogId" value="${blog.id}">
 			             <input type="hidden" name="userId" value="${id}">
 			             <div class="messages"></div>

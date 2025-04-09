@@ -14,9 +14,7 @@ import com.xhxy.eshop.service.CommentService;
 import com.xhxy.eshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/blog")
@@ -58,10 +56,10 @@ public class BlogController {
 		return "blog-detail";
 	}
 	// 提交评论
-	public String saveComment(HttpServletRequest request, HttpServletResponse response) {
-		Integer blogId = Integer.parseInt(request.getParameter("blogId"));
-		Integer userId = Integer.parseInt(request.getParameter("userId"));
-		String content = request.getParameter("content");
+	@PostMapping("/saveComment")
+	public String saveComment(@RequestParam(required = true) Integer blogId,
+							  @RequestParam(required = true) Integer userId,
+							  @RequestParam(required = true) String content) {
 		
 		Comment comment = new Comment();
 		comment.setBlog(blogService.findById(blogId));
@@ -71,6 +69,6 @@ public class BlogController {
 		
 		commentService.save(comment);
 		
-		return "r:/blog?method=detail&id="+blogId;	// 使用重定向
+		return "redirect:/blog/detail/"+blogId;	// 使用重定向
 	}
 }
