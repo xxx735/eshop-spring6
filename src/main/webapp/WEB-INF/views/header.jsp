@@ -69,11 +69,11 @@
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <li class="nav-item"> <a class="nav-link active" href="index">首页</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="category?method=all">分类商品</a></li>
+                  <li class="nav-item"> <a class="nav-link active" href="${pageContext.request.contextPath}/index">首页</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/category/all">分类商品</a></li>
                   <li class="nav-item"> <a class="nav-link" href="miaosha.jsp">秒杀</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="blog/list">好物推荐</a></li>
-                  <li class="nav-item"> <a class="nav-link" href="faq">常见问题</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/blog/list">好物推荐</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/faq">常见问题</a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> </a></li>
                 </ul>
               </div>

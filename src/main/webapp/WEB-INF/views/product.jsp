@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>${product.name}商品的详情页</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -26,14 +26,14 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-6">
-        <h1 class="h2 mb-0">商品详情</h1>
+        <h1 class="h2 mb-0">商品详情</h1>
       </div>
       <div class="col-md-6 mt-3 mt-md-0">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-            <li class="breadcrumb-item"><a class="link-title" href="index">首页</a> </li>
+            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a> </li>
             <li class="breadcrumb-item"><a class="link-title" href="category?method=list&id=${product.category.id}">${product.category.name}</a></li>
-            <li class="breadcrumb-item active text-primary" aria-current="page">${product.name}</li>
+            <li class="breadcrumb-item active text-primary" aria-current="page">${product.name}</li>
           </ol>
         </nav>
       </div>
@@ -58,7 +58,7 @@
 	      <div class="col-lg-6 col-12">
 	        <div class="product-image">
 	            <div class="product_img_box">
-	                <img id="product_img" src="${product.pic}" data-zoom-image="${product.pic}" alt="product_img1" />
+	                <img id="product_img" src="${pageContext.request.contextPath}/${product.pic}" data-zoom-image="${product.pic}" alt="product_img1" />
 	                <a href="#" class="product_img_zoom" title="Zoom">
 	                    <span class="linearicons-zoom-in"></span>
 	                </a>
@@ -67,7 +67,7 @@
 	                 <c:forEach var="picture" items="${product.pictureList}">
 	                     <div class="item">
 	                         <a href="#" class="product_gallery_item" data-image="${picture.file}" data-zoom-image="${picture.file}">
-	                             <img src="${picture.file}"/>
+	                             <img src="${pageContext.request.contextPath}/${picture.file}"/>
 	                         </a>
 	                     </div>
 	                  </c:forEach>
@@ -80,8 +80,8 @@
 	          <span class="product-price h5 text-pink">${product.price} <del class="text-muted h6">￥${product.originalPrice}</del></span>
 	          <ul class="list-unstyled my-5">
 	            <li><small>库存: <span class="text-green">${product.stock>0?'有货':'无货'}</span> </small></li>
-	            <li class="font-w-4"><small>分类:<span class="text-muted">${product.category.name}</span></small></li>
-	            <!-- <li class="font-w-4"><small>标签tags:<span class="text-muted">多个tags</span></small> </li>  -->
+	            <li class="font-w-4"><small>分类:<span class="text-muted">${product.category.name}</span></small></li>
+	            <!-- <li class="font-w-4"><small>标签tags:<span class="text-muted">多个tags</span></small> </li>  -->
 	          </ul>
 	          <p class="mb-5 border-top border-bottom pb-5 pt-5 desc">${product.brief}</p>
 	          <div class="d-sm-flex align-items-center mb-5">

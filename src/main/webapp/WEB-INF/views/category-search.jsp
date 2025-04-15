@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>商品分类页</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -29,9 +29,9 @@
       <div class="col-md-6 mt-3 mt-md-0">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-            <li class="breadcrumb-item"><a class="link-title" href="index.jsp">首页</a>
+            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a>
             </li>
-            <li class="breadcrumb-item"><a class="link-title" href="category?method=all">全部分类商品</a></li>
+            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/category/all">全部分类商品</a></li>
             <li class="breadcrumb-item active text-primary" aria-current="page">搜索到的商品</li>
           </ol>
         </nav>
@@ -58,10 +58,12 @@
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="card product-card card--default rounded-0">
                         <div class="sale-label">${product.category.name}</div>
-                        <a class="card-img-hover d-block" href="product?method=detail&id=${product.id}"> <img class="card-img-back" src="${product.pic}" alt="..."> <img class="card-img-front" src="${product.pic2}" alt="..."> </a>
+                        <a class="card-img-hover d-block" href="${pageContext.request.contextPath}/product/detail/${product.id}">
+                            <img class="card-img-back" src="${pageContext.request.contextPath}/${product.pic}" alt="...">
+                            <img class="card-img-front" src="${pageContext.request.contextPath}/${product.pic2}" alt="..."> </a>
                         <div class="card-info">
                           <div class="card-body">
-                            <div class="product-title font-w-5"><a class="link-title" href="product?method=detail&id=${product.id}">${product.name}</a> </div>
+                            <div class="product-title font-w-5"><a class="link-title" href="${pageContext.request.contextPath}/product/detail/${product.id}">${product.name}</a> </div>
                             <div class="mt-1"> <span class="product-price text-pink"><del class="text-muted">￥${product.originalPrice}</del> ${product.price}</span>
                             </div>
                           </div>
@@ -82,23 +84,23 @@
           	<c:choose>
           		<c:when test="${page.pageIndex == 1}">
           			<li class="page-item">
-          				<a class="page-link" href="category?method=search&pageSize=${page.pageSize}&pageIndex=${page.pageIndex}&name=${name}&brief=${brief}&detail=${detail}">前一页</a></li>
+          				<a class="page-link" href="${pageContext.request.contextPath}/category/search?pageSize=${page.pageSize}&pageIndex=${page.pageIndex}&name=${name}&brief=${brief}&detail=${detail}">前一页</a></li>
           		</c:when>
             	<c:otherwise>
             		<li class="page-item">
-            			<a class="page-link" href="category?method=search&pageSize=${page.pageSize}&pageIndex=${page.pageIndex-1}&name=${name}&brief=${brief}&detail=${detail}">前一页</a></li>
+            			<a class="page-link" href="${pageContext.request.contextPath}/category/search?pageSize=${page.pageSize}&pageIndex=${page.pageIndex-1}&name=${name}&brief=${brief}&detail=${detail}">前一页</a></li>
             	</c:otherwise>
             </c:choose>
             <c:forEach begin="1" end="${page.totalPage}" varStatus="status">
             	<li class="page-item">
-            		<a class="page-link" href="category?method=search&pageSize=${page.pageSize}&pageIndex=${status.index}&name=${name}&brief=${brief}&detail=${detail}">${status.index}</a></li>
+            		<a class="page-link" href=${pageContext.request.contextPath}/category/search?pageSize=${page.pageSize}&pageIndex=${status.index}&name=${name}&brief=${brief}&detail=${detail}">${status.index}</a></li>
             </c:forEach>
             <c:choose>
           		<c:when test="${page.pageIndex == page.totalPage}">
-          			<li class="page-item"><a class="page-link" href="category?method=search&pageSize=${page.pageSize}&pageIndex=${page.pageIndex}&name=${name}&brief=${brief}&detail=${detail}">后一页</a></li>
+          			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/category/search?pageSize=${page.pageSize}&pageIndex=${page.pageIndex}&name=${name}&brief=${brief}&detail=${detail}">后一页</a></li>
           		</c:when>
             	<c:otherwise>
-            		<li class="page-item"><a class="page-link" href="category?method=search&pageSize=${page.pageSize}&pageIndex=${page.pageIndex+1}&name=${name}&brief=${brief}&detail=${detail}">后一页</a></li>
+            		<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/category/search?pageSize=${page.pageSize}&pageIndex=${page.pageIndex+1}&name=${name}&brief=${brief}&detail=${detail}">后一页</a></li>
             	</c:otherwise>
             </c:choose>
           </ul>
@@ -122,7 +124,7 @@
                   <div class="card-body text-muted">
                     <ul class="list-unstyled">
                 		<c:forEach var="childCategory" items="${topCategory.children}">
-                        <li> <a href="category?method=list&id=${childCategory.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${childCategory.name}</a></li>
+                        <li> <a href="${pageContext.request.contextPath}/category/list/${childCategory.id}">&nbsp;&nbsp;&nbsp;&nbsp;${childCategory.name}</a></li>
                         </c:forEach>
                     </ul>
                   </div>
@@ -136,7 +138,7 @@
           <div class="widget widget-categories mb-4 border rounded p-4">
             <h5 class="widget-title mb-3">多条件搜索商品</h5>
              
-              <form action="category?method=search" method="post" class="row">
+              <form action="${pageContext.request.contextPath}/category/search" method="post" class="row">
 	              <div class="form-group col-md-12">
 	                <label>商品名称</label>
 		              <input id="form_name" type="text" name="name" class="form-control" value="${name}">

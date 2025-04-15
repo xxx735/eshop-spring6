@@ -25,6 +25,12 @@
                 <value>classpath*:com/xhxy/eshop/mapper/*.xml</value>
             </array>
         </property>
+        <!-- 配置分页插件 -->
+        <property name="plugins">
+            <array>
+                <bean class="com.xhxy.eshop.interceptor.PagePlugin"/>
+            </array>
+        </property>
     </bean>
 
     <!-- 3. 自动扫描Mapper接口 -->
