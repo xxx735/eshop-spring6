@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Order {
 	private Integer id;
-	private Status status;		// 状态
+	private Integer status;		// 状态
 	private Date createTime;	// 生成时间
 	private float total;		// 订单总额
 	
@@ -49,12 +49,17 @@ public class Order {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	public Status getStatus() {
-		return status;
+	public Integer getStatus() {
+		return this.status;
 	}
 	public void setStatus(Status status) {
+		this.status = status.getIndex();
+	}
+
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}

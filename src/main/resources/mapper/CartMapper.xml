@@ -6,10 +6,10 @@
 <mapper namespace="com.xhxy.eshop.mapper.CartMapper">
 	
 	<select id="findByUserId" resultMap="cartMap">
-		select * from cart where user_id = #{userId}		
+		select * from sys.cart where user_id = #{userId}
 	</select>
 	<select id="findById" resultMap="cartMap">
-		select * from cart where id = #{id}
+		select * from sys.cart where id = #{id}
 	</select>
 	
 	<resultMap type="com.xhxy.eshop.entity.Cart" id="cartMap">
@@ -28,7 +28,7 @@
 	</resultMap>
 	
 	<update id="updateTotal">
-		update cart set total = #{cartTotal} where id = #{cartId}
+		update sys.cart set total = #{cartTotal} where id = #{cartId}
 	</update>
 	
 </mapper>

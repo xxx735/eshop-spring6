@@ -2,6 +2,7 @@ package com.xhxy.eshop.controller;
 
 import java.util.List;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,38 +15,49 @@ import com.xhxy.eshop.service.OrderService;
 import com.xhxy.eshop.service.Impl.mybatis.CartServiceImpl;
 import com.xhxy.eshop.service.Impl.mybatis.OrderServiceImpl;
 import com.xhxy.eshop.service.Impl.mybatis.AddressServiceImpl;
-@WebServlet("/order")
-public class OrderController extends BaseServlet {
-	private static final long serialVersionUID = 1L;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-	private CartService cartService = new CartServiceImpl();
-	private OrderService orderService = new OrderServiceImpl();
-	private AddressService addressService = new AddressServiceImpl();
+@Controller
+@RequestMapping("/order")
+public class OrderController {
+
+	@Resource
+	private CartService cartService ;
+	@Resource
+	private OrderService orderService ;
+	@Resource
+	private AddressService addressService ;
 	
 	// 创建订单:create
-	public String create(HttpServletRequest request, HttpServletResponse response) {
-		int userId = (int)request.getSession().getAttribute("id");// 登录用户的id
+	@GetMapping("/create")
+	public String create(Model model, HttpSession session) {
+		int userId = (int)session.getAttribute("userId");// 登录用户的id
 		
 		Cart cart = cartService.findByUserId(userId);
-		request.setAttribute("cart", cart);
+		model.addAttribute("cart", cart);
 		
 		List<Address> addressList = addressService.findByUserId(userId);
-		request.setAttribute("addressList", addressList);
+		model.addAttribute("addressList", addressList);
 		
-		return "order-create.jsp";
+		return "order-create";
 	}
 	
 	// 完成（结束）订单
-	public String complete(HttpServletRequest request, HttpServletResponse response) {
+	@PostMapping("/complete")
+	public String complete(Integer addressId,HttpSession session) {
 		
-		Integer id = (Integer)request.getSession().getAttribute("id");	// 即userId
+		Integer id = (Integer)session.getAttribute("userId");	// 即userId
 		Cart cart = cartService.findByUserId(id);
-		
-		Integer addressId = Integer.parseInt( request.getParameter("addressId"));
+
 		Address address = addressService.findById(addressId);
 		
 		orderService.createOrder(cart,address); 	
 		
-		return "/order-complete.jsp";
+		return "/order-complete";
 	}
 }

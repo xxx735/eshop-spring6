@@ -56,10 +56,20 @@ public class UserController {
 					model.addAttribute("userId", userId);					// 设置会话里的Id属性
 					
 					// 获取该用户的购物车
-					Cart cart = cartService.findByUserId(userId);
+					Integer cartUserId = (Integer)model.getAttribute("userId");
+					if(cartUserId == null) {
+						cartUserId = (Integer)model.getAttribute("id"); // 兼容旧版本
+					}
+					if(cartUserId == null) {
+						throw new IllegalArgumentException("用户未登录或session失效");
+					}
+					Cart cart = cartService.findByUserId(cartUserId);
+					if(cart == null) {
+						throw new IllegalStateException("用户购物车不存在");
+					}
 					model.addAttribute("cart", cart);	// 购物车cart放入request中
 					// 重定向到首页
-					return "redirect:/index";	//此处需要：重定向redirect
+					return "redirect:/blog/list";	//此处需要：重定向redirect
 				}
 			}
 		// 若不能自动登录，则继续获取请求参数
@@ -68,7 +78,7 @@ public class UserController {
 		Integer id = userService.login(user.getUsername(), user.getPassword());
 		if ( id != null && id > -1) { // 登录成功
 			model.addAttribute("userName", user.getUsername());
-			model.addAttribute("id", id);
+			model.addAttribute("userId", id);
 			
 			// 获取该用户的购物车
 			Cart cart = cartService.findByUserId(id);
@@ -85,7 +95,7 @@ public class UserController {
 			}
 			model.addAttribute("cart", cart);//放入request
 			// 重定向到首页
-			return "redirect:/index";	//此处需要：重定向redirect
+			return "redirect:/blog/list";	//此处需要：重定向redirect
 		}else { // 登录失败
 			model.addAttribute("message", "登录失败，请重新登录");
 			

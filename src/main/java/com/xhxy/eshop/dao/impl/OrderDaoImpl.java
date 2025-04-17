@@ -68,7 +68,7 @@ public class OrderDaoImpl implements OrderDao {
 			pstmt.setInt(1, order.getUser().getId());
 			pstmt.setInt(2, order.getAddress().getId());
 			pstmt.setFloat(3, order.getTotal());
-			pstmt.setInt(4, order.getStatus().getIndex());
+			pstmt.setInt(4,order.getStatus());
 			pstmt.setDate(5, new java.sql.Date(order.getCreateTime().getTime()));
 			pstmt.executeUpdate();
 			

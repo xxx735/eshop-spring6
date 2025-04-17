@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>购物车</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -30,7 +30,7 @@
 	      <div class="col-md-6 mt-3 mt-md-0">
 	        <nav aria-label="breadcrumb">
 	          <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-	            <li class="breadcrumb-item"><a class="link-title" href="index">首页</a>
+	            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a>
 	            </li>
 	            <li class="breadcrumb-item"><a class="link-title" href="#">购物车</a></li>
 	            <li class="breadcrumb-item active text-primary" aria-current="page">我的购物车</li>
@@ -66,8 +66,8 @@
 		              <tr>
 		                <td>
 		                  <div class="cart-thumb media align-items-center">
-		                    <a href="product?method=detail&id=${cartItem.product.id}">
-		                      <img class="img-fluid" src="${cartItem.product.pic}" alt="商品图片">
+		                    <a href="${pageContext.request.contextPath}/product/detail/${cartItem.product.id}">
+		                      <img class="img-fluid" src="${pageContext.request.contextPath}/${cartItem.product.pic}" alt="商品图片">
 		                    </a>
 		                    <div class="media-body ml-3">
 		                      <div class="product-title mb-2"><a class="link-title" href="#">${cartItem.product.name}</a>
@@ -101,8 +101,8 @@
 			        <div class="border rounded p-5 bg-light-4">
 			          <div class="d-flex justify-content-between align-items-center pt-3 mb-5"> <span class="text-dark h5">合计</span>  <span class="text-dark font-w-6 h5">${cart.total}</span> 
 			          </div> 
-			          <a class="btn btn-primary btn-animated btn-block col-lg-3" href="order?method=create">生成订单</a>
-			          <a class="btn btn-dark btn-animated mt-3 btn-block col-lg-3" href="category?method=all">继续购物</a>
+			          <a class="btn btn-primary btn-animated btn-block col-lg-3" href="${pageContext.request.contextPath}/order/create">生成订单</a>
+			          <a class="btn btn-dark btn-animated mt-3 btn-block col-lg-3" href="${pageContext.request.contextPath}/category/all">继续购物</a>
 			        </div>
 			      </div>
 		      </div>

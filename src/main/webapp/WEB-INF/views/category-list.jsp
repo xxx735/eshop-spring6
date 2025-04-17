@@ -69,7 +69,7 @@
                           </div>
                           <div class="card-footer bg-transparent border-0">
                             <div class="product-link d-flex align-items-center justify-content-center">
-                              <a class="btn-cart btn btn-pink mx-3" type="button" href="cart?method=add&id=${product.id}">
+                              <a class="btn-cart btn btn-pink mx-3" type="button" href="${pageContext.request.contextPath}/cart/add/${product.id}">
                               	<i class="las la-shopping-cart mr-1"></i> 加入购物车 </a>
                             </div>
                           </div>

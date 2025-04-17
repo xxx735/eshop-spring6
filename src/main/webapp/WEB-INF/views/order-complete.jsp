@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>订单完成</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-light-4">
@@ -30,7 +30,7 @@
       <div class="col-md-6 mt-3 mt-md-0">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-            <li class="breadcrumb-item"><a class="link-title" href="index.jsp">首页</a>
+            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a>
             </li>
             <li class="breadcrumb-item"><a class="link-title" href="account">我的订单</a></li>
             <li class="breadcrumb-item active text-primary" aria-current="page">订单完成页</li>
@@ -53,8 +53,8 @@
     <div class="row">
       <div class="col-md-12">
         <h4 class="mb-4 font-w-6">您的订单已完成，感谢购买！</h4>
-        <a class="btn btn-primary btn-animated" href="index">返回首页</a>
-        <a class="btn btn-dark btn-animated" href="category?method=all">继续购物</a>      
+        <a class="btn btn-primary btn-animated" href="${pageContext.request.contextPath}/index">返回首页</a>
+        <a class="btn btn-dark btn-animated" href="${pageContext.request.contextPath}/category/all">继续购物</a>
       </div>
     </div>
   </div>

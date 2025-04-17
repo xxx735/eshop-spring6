@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>订单</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -29,7 +29,7 @@
 					<div class="col-md-6 mt-3 mt-md-0">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-								<li class="breadcrumb-item"><a class="link-title" href="index.jsp">首页</a></li>
+								<li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a></li>
 								<li class="breadcrumb-item active text-primary" aria-current="page">生成订单</li>
 							</ol>
 						</nav>
@@ -51,7 +51,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 mt-5 mt-lg-0">
-						<form class="row" action="order?method=complete" method="post">
+						<form class="row" action="${pageContext.request.contextPath}/order/complete" method="post">
 						    <input type="hidden" name="userId" value="${userId}"/>
 							<div class="border bg-light-4 p-3 col-lg-11">
 								<div class="mb-7">

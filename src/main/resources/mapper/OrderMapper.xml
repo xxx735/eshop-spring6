@@ -6,7 +6,7 @@
 <mapper namespace="com.xhxy.eshop.mapper.OrderMapper">
 	
 	<select id="getByUserId" resultMap="orderMap">
-		select * from orders where user_id = #{userId}		
+		select * from orders where user_id = #{userId}
 	</select>
 	<select id="findById" resultMap="orderMap">
 		select * from orders where id = #{id}

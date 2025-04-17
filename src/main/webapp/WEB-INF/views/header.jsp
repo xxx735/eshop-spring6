@@ -30,7 +30,7 @@
 				   </c:when>
 				   <c:otherwise>
 				   		<li><a href="account"><i class="icon fa fa-user"></i><span>${userName}</span></a></li>
-              			<li><a href="cart?method=view&id=${id}"><i class="icon fa fa-shopping-cart"></i><span>购物车</span></a></li>
+              			<li><a href="${pageContext.request.contextPath}/cart/view"><i class="icon fa fa-shopping-cart"></i><span>购物车</span></a></li>
 				        <li><a href="${pageContext.request.contextPath}/user/logout"><i class="icon fa fa-power-off"></i><span>退出</span></a></li>
 				   </c:otherwise>
 		        </c:choose>
