@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>个人中心</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -32,7 +32,7 @@
 	      <div class="col-md-6 mt-3 mt-md-0">
 	        <nav aria-label="breadcrumb">
 	          <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-	            <li class="breadcrumb-item"><a class="link-title" href="index.jsp">首页</a>
+	            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a>
 	            </li>
 	            <li class="breadcrumb-item active text-primary" aria-current="page">个人中心</li>
 	          </ol>
@@ -54,27 +54,27 @@
 	                <div class="dashboard_menu">
 	                    <ul class="nav nav-tabs border-0 flex-column" role="tablist">
 	                      <li class="nav-item">
-	                        <a class="nav-link active" href="account?method=dashboard&id=${id}" aria-selected="true">
+	                        <a class="nav-link active" href="${pageContext.request.contextPath}/account/dashboard" >
 	                        主页面</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="account?method=orderlist&id=${id}" aria-selected="false">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/orderlist" >
 	                        我的订单</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="account?method=addresslist&id=${id}" aria-selected="false">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/addresslist" >
 	                        收货地址</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="account?method=viewUser&id=${id}" aria-selected="false">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/viewUser" >
 	                        账号信息</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="cart?method=view&id=${id}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/cart/view">
 	                        购物车</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="user?method=logout">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/user/logout">
 	                        退出</a>
 	                      </li>
 	                    </ul>
@@ -87,7 +87,7 @@
 	                        	
 	                            <div class="card-body">
 	                    			<div class="welcome-msg">
-					                <h6>您好, ${username}！</h6>
+					                <h6>您好, ${userName}！</h6>
 					                <p>欢迎您使用个人中心。可以查看和修改本人的信息，也可以新增、查看、编辑收货地址，查看订单信息。</p>
 					              </div>
 	                            </div>

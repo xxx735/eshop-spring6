@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>个人中心-修改用户信息</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -29,7 +29,7 @@
 	      <div class="col-md-6 mt-3 mt-md-0">
 	        <nav aria-label="breadcrumb">
 	          <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-	            <li class="breadcrumb-item"><a class="link-title" href="index">首页</a></li>
+	            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a></li>
 	            <li class="breadcrumb-item active text-primary" aria-current="page">个人中心</li>
 	          </ol>
 	        </nav>
@@ -50,7 +50,7 @@
 	                <div class="dashboard_menu">
 	                    <ul class="nav nav-tabs border-0 flex-column" role="tablist">
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="account?method=dashboard&id=${id}" >
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/dashboard" >
 	                        主页面</a>
 	                      </li>
 	                      <li class="nav-item">
@@ -58,19 +58,19 @@
 	                        我的订单</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link active" href="account?method=addresslist&id=${id}">
+	                        <a class="nav-link active" href="${pageContext.request.contextPath}/account/addresslist">
 	                        收货地址</a>
 	                      </li>
 	                      <li class="nav-item">
 	                        <a class="nav-link" href="account?method=viewUser&id=${id}">
-	                        账号信息</a>
+	                        个人信息</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="cart?method=view&id=${id}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/cart/view">
 	                        购物车</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="user?method=logout">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/user/logout">
 	                        退出</a>
 	                      </li>
 	                    </ul>
@@ -82,7 +82,7 @@
 							<div class="card border-0">
 	                           <h5 class="font-w-6">修改收货地址</h5>
 	                            <div class="card-body">
-	                                <form action="account?method=updateAddress" method="post" name="enq">
+	                                <form action="${pageContext.request.contextPath}/account/updateAddress" method="post" name="enq">
 	                                	<input name="id" type="hidden" value="${address.id}">
 	                                	<input name="userId" type="hidden" value="${id}">
 	                                    <div class="row">

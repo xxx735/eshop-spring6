@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>收货地址列表-个人中心</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -29,7 +29,7 @@
 	      <div class="col-md-6 mt-3 mt-md-0">
 	        <nav aria-label="breadcrumb">
 	          <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-	            <li class="breadcrumb-item"><a class="link-title" href="index">首页</a></li>
+	            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index">首页</a></li>
 	            <li class="breadcrumb-item active text-primary" aria-current="page">个人中心</li>
 	          </ol>
 	        </nav>
@@ -50,7 +50,7 @@
 	                <div class="dashboard_menu">
 	                    <ul class="nav nav-tabs border-0 flex-column" role="tablist">
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="account?method=dashboard&id=${id}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/dashboard">
 	                        主页面</a>
 	                      </li>
 	                      <li class="nav-item">
@@ -58,7 +58,7 @@
 	                        我的订单</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link active" href="account?method=addresslist&id=${id}">
+	                        <a class="nav-link active" href="${pageContext.request.contextPath}/account/addresslist">
 	                        收货地址</a>
 	                      </li>
 	                      <li class="nav-item">
@@ -66,11 +66,11 @@
 	                        账号信息</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="cart?method=view&id=${id}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/cart/view">
 	                        购物车</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="user?method=logout">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/user/logout">
 	                        退出</a>
 	                      </li>
 	                    </ul>
@@ -101,8 +101,8 @@
 	                                                <td>${address.consigneePhone}</td>
 	                                                <td>${address.postcode}</td>
 	                                                <td>
-	                                                <a href="account?method=editAddress&id=${address.id}" class="btn btn-fill-out btn-sm">修改</a>
-	                                                <a href="account?method=deleteAddress&id=${address.id}" class="btn btn-fill-out btn-sm" data-original-title="不进行确认，直接删除" data-toggle="tooltip">删除</a>
+	                                                <a href="${pageContext.request.contextPath}/account/editAddress/${address.id}" class="btn btn-fill-out btn-sm">修改</a>
+	                                                <a href="${pageContext.request.contextPath}/account/deleteAddress/${address.id}" class="btn btn-fill-out btn-sm" data-original-title="不进行确认，直接删除" data-toggle="tooltip">删除</a>
 	                                                </td>
 	                                            </tr>
 												</c:forEach>
@@ -117,8 +117,8 @@
 								<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
 								    <div class="modal-dialog">
 								        <div class="modal-content">
-										    <form action="account?method=addAddress" method="post">
-										    	<input name="userId" value="${id}" type="hidden"/>
+										    <form action="${pageContext.request.contextPath}/account/addAddress" method="post">
+										    	<input name="userId" value="${userId}" type="hidden"/>
 									            <div class="modal-header">
 									                <h5 class="modal-title">新增收货地址</h5>
 									            </div>

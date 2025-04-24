@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import com.xhxy.eshop.entity.Address;
@@ -18,45 +20,46 @@ import com.xhxy.eshop.entity.User;
 import com.xhxy.eshop.service.AddressService;
 import com.xhxy.eshop.service.OrderService;
 import com.xhxy.eshop.service.UserService;
-import com.xhxy.eshop.service.Impl.mybatis.OrderServiceImpl;
-import com.xhxy.eshop.service.Impl.mybatis.UserServiceImpl;
-import com.xhxy.eshop.service.Impl.mybatis.AddressServiceImpl;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@WebServlet("/account")
+@Controller
+@RequestMapping("/account")
 @MultipartConfig(location="D:\\",fileSizeThreshold=1024)
-public class AccountController   extends BaseServlet{
+public class AccountController {
+
+	@Resource
+	private UserService userService ;
+	@Resource
+	private OrderService orderService ;
+	@Resource
+	private AddressService addressService ;
 	
-	private UserService userService = new UserServiceImpl();
-	private OrderService orderService = new OrderServiceImpl();
-	private AddressService addressService = new AddressServiceImpl();
-	
-	// 默认处理方法
-	public String index(HttpServletRequest request, HttpServletResponse response) {
-		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
-		User user = userService.findById(id);
-		request.getSession().setAttribute("user", user);
-		
-		return "account-dashboard.jsp";
-	}
+
 	// 账号中心的“主页面”
-	public String dashboard(HttpServletRequest request, HttpServletResponse response) {
-		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
+	@GetMapping("/dashboard")
+	public String dashboard(HttpSession session, Model model) {
+		Integer id = (Integer)session.getAttribute("userId");// 已登录用户的id
 		User user = userService.findById(id);
-		request.getSession().setAttribute("user", user);
+		model.addAttribute("user", user);
 		
-		return "account-dashboard.jsp";
+		return "account-dashboard";
 	}
 	// ------ 订单 -> 列表 -------
-	public String orderlist(HttpServletRequest request, HttpServletResponse response) {
-		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
+	public String orderlist(HttpSession session , Model model) {
+		Integer id = (Integer)session.getAttribute("userId");// 已登录用户的id
 		
 		List<Order> orders = orderService.getByUserId(id);
-		request.setAttribute("orders", orders);
+		model.addAttribute("orders", orders);
 		
 		User user = userService.findById(id);
-		request.setAttribute("user", user);
+		model.addAttribute("user", user);
 		
-		return "account-order-list.jsp";
+		return "account-order-list";
 	}
 	// ------ 订单 -> 查看单个 -------
 	public String orderView(HttpServletRequest request, HttpServletResponse response) {
@@ -69,78 +72,55 @@ public class AccountController   extends BaseServlet{
 	}
 	
 	// ------ 收货地址 -> 列表 -------
-	public String addresslist(HttpServletRequest request, HttpServletResponse response) {
-		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
+	@GetMapping("/addresslist")
+	public String addresslist(HttpSession session,Model model) {
+		Integer id = (Integer)session.getAttribute("userId");// 已登录用户的id
 		
 		List<Address> addressList = addressService.findByUserId(id);
-		request.setAttribute("addressList", addressList);
+		model.addAttribute("addressList", addressList);
 		
-		return "account-address-list.jsp";
+		return "account-address-list";
 	}
 	// ------ 收货地址 -> 编辑 -------
-	public String editAddress(HttpServletRequest request, HttpServletResponse response) {
-		Integer id = Integer.parseInt(request.getParameter("id"));// 收货地址的id
-		
+	@GetMapping("/editAddress/{id}")
+	public String editAddress(@PathVariable Integer id ,Model model) {
+
 		Address address = addressService.findById(id);
-		request.setAttribute("address", address);
+		model.addAttribute("address", address);
 		
-		return "account-address-edit.jsp";
+		return "account-address-edit";
 	}
 	// ------ 收货地址 -> 新建 -------
-	public String addAddress(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException
-	{
-		
-		String consigneeName = request.getParameter("consigneeName");
-		String consigneeAddress = request.getParameter("consigneeAddress");
-		String consigneePhone = request.getParameter("consigneePhone");
-		String postcode = request.getParameter("postcode");
-		Integer userId = Integer.parseInt(request.getParameter("userId"));
-		
+	@PostMapping("addAddress")
+	public String addAddress(Address address,Integer userId) {
+
 		User user = userService.findById(userId);
-		
-		Address address = new Address();
-		address.setConsigneeAddress(consigneeAddress);
-		address.setConsigneeName(consigneeName);
-		address.setConsigneePhone(consigneePhone);
-		address.setPostcode(postcode);
+
 		address.setUser(user);
 		
 		addressService.add(address);
 		
-		return "r:/account?method=addresslist";	//需要用重定向redirect，否则页面依然是旧数据
+		return "redirect:/account/addresslist";	//需要用重定向redirect，否则页面依然是旧数据
 	}
 	
 	// ------ 收货地址 -> 更改 -------
-	public String updateAddress(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-		// 
-		Address address = new Address();
-		// 1.获取请求参数
-		
-		Integer id = Integer.parseInt( request.getParameter("id") );//Address的id属性
-		address.setId(id);
-		address.setConsigneeName( request.getParameter("consigneeName") );	// 收货人姓名
-		address.setConsigneeAddress( request.getParameter("consigneeAddress") ); // 收货具体地址
-		address.setConsigneePhone( request.getParameter("consigneePhone") );//收货电话
-		address.setPostcode( request.getParameter("postcode") );
-		// address的user属性不用改变，因为不会修改user
-		
-		// 3、让数据层去更新数据
+	@PostMapping("updateAddress")
+	public String updateAddress(Address address) {
+
+		// 1、让数据层去更新数据
 		addressService.update(address);
-		// 4.返回表示层
-		return "r:/account?method=addresslist"; //需要用重定向redirect，否则页面依然是旧数据
+		// 2.返回表示层
+		return "redirect:/account/addresslist"; //需要用重定向redirect，否则页面依然是旧数据
 	}
 	
 	// ------ 收货地址 -> 删除 -------
-	public String deleteAddress(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException{
-		// 
-		// 1.获取请求参数
-		
-		Integer id = Integer.parseInt( request.getParameter("id") );//Address的id属性
-		
-		// 2、让数据层去更新数据
+	@GetMapping("deleteAddress/{id}")
+	public String deleteAddress(@PathVariable Integer id ){
+
+		// 1、让数据层去更新数据
 		addressService.delete(id);
-		// 4.返回表示层
-		return "r:/account?method=addresslist"; //需要用重定向redirect，否则页面依然是旧数据
+		// 2.返回表示层
+		return "redirect:/account/addresslist"; //需要用重定向redirect，否则页面依然是旧数据
 	}
 	
 	// ------ 用户信息 -> 查看 -------
@@ -203,7 +183,7 @@ public class AccountController   extends BaseServlet{
 			user.setAvatar(null);// 设为null，便于mapper中进行动态SQL处理(条件update)
 		}
 		else {				// 若上传头像，则
-			String filePath = this.getServletContext().getRealPath("/");
+			String filePath = request.getServletContext().getRealPath("/");
 			filePath = filePath + "\\member\\" + id;
 			File file = new File(filePath);
 			if( !file.exists()) {	// 若目录不存在，则创建目录
