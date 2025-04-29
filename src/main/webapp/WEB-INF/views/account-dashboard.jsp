@@ -66,7 +66,7 @@
 	                        收货地址</a>
 	                      </li>
 	                      <li class="nav-item">
-	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/viewUser" >
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/account/viewUser/${userId}" >
 	                        账号信息</a>
 	                      </li>
 	                      <li class="nav-item">

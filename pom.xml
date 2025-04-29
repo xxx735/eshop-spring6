@@ -14,11 +14,49 @@
   <dependencies>
 
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-nop</artifactId>
-      <version>1.7.36</version> <!-- 忽略日志 -->
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.slf4j</groupId>-->
+<!--      <artifactId>slf4j-nop</artifactId>-->
+<!--      <version>1.7.36</version> &lt;!&ndash; 忽略日志 &ndash;&gt;-->
+<!--    </dependency>-->
+
+
+          <!-- Spring Web -->
+<!--          <dependency>-->
+<!--              <groupId>org.springframework</groupId>-->
+<!--              <artifactId>spring-web</artifactId>-->
+<!--              <version>6.0.0</version>-->
+<!--          </dependency>-->
+
+          <!-- Log4j Core -->
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-core</artifactId>
+              <version>2.20.0</version>
+          </dependency>
+
+          <!-- Log4j API -->
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-api</artifactId>
+              <version>2.20.0</version>
+          </dependency>
+
+          <!-- Log4j Web Support -->
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-web</artifactId>
+              <version>2.20.0</version>
+          </dependency>
+
+          <!-- Servlet API (通常由 Tomcat 提供，但有时需要显式声明) -->
+<!--          <dependency>-->
+<!--              <groupId>jakarta.servlet</groupId>-->
+<!--              <artifactId>jakarta.servlet-api</artifactId>-->
+<!--              <version>6.0.0</version>-->
+<!--              <scope>provided</scope>-->
+<!--          </dependency>-->
+
 
 
     <!-- Spring MVC -->

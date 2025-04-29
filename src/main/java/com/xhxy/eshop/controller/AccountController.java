@@ -124,57 +124,44 @@ public class AccountController {
 	}
 	
 	// ------ 用户信息 -> 查看 -------
-	public String viewUser(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/viewUser/{userId}")
+	public String viewUser(@PathVariable Integer userId, Model model) {
 //		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
-		Integer id = Integer.parseInt(request.getParameter("id"));
+//		Integer id = Integer.parseInt(request.getParameter("id"));
 		
-		User user = userService.findById(id);
-		request.setAttribute("user", user);
+		User user = userService.findById(userId);
+		model.addAttribute("user", user);
 		
-		return "account-user-view.jsp";
+		return "account-user-view";
 	}
 	
-	// ------ 用户信息 -> 编辑 -------
-	public String editUser(HttpServletRequest request, HttpServletResponse response) {
+	// ------ 用户信息 -> 编辑页面  -------
+	@GetMapping("/editUser/{userId}")
+	public String editUser(@PathVariable Integer userId, Model model) {
 //		Integer id = (Integer)request.getSession().getAttribute("id");// 已登录用户的id
-		Integer id = Integer.parseInt(request.getParameter("id"));
+//		Integer id = Integer.parseInt(request.getParameter("id"));
 		
-		User user = userService.findById(id);
-		request.setAttribute("user", user);
+		User user = userService.findById(userId);
+		model.addAttribute("user", user);
 		
-		return "account-user-edit.jsp";
+		return "account-user-edit";
 	}
-	
-	public String updateUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
-		// 1.获取请求参数
-		Integer id = Integer.parseInt( request.getParameter("id") );
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");		// 当前（旧）密码为空，保持密码不变
-		String newPassword = request.getParameter("newPassword");//新密码
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		
+	// ------ 用户信息 -> 更改操作-----
+	@PostMapping ("/updateUser")
+	public String updateUser(User user,String newPassword, Model model ,HttpServletRequest request) throws ServletException, IOException {
 		// 2.要不要替换密码
-		String currPassword = userService.findPasswordById(id);
-		
+		String currPassword = userService.findPasswordById(user.getId());
+		String password = user.getPassword();
 		if(password.isBlank()) {
 			password = null;	// 设为null，便于mapper中进行动态SQL处理(条件update)
 		}
 		else if(password != null && !password.equals(currPassword)){	// 输入的原密码不正确
 			request.getSession().setAttribute("pswdErrorMessage", "原密码输入错误，请重新输入");
-			return "r:/account?method=editUser&id="+id;		// 简单返回页面，重新输入
+			return "redirect:/account/editUser/"+user.getId();		// 简单返回页面，重新输入
 		}
 		else if(password !=null && password.equals(currPassword) && newPassword != null && (!newPassword.isEmpty())) {
 			password = newPassword;
 		}
-		
-		// 3.User的常规属性
-		User user = new User();
-		user.setId(id);
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setEmail(email);
-		user.setPhone(phone);
 		
 		// 4.上传头像文件的处理
 		Part part = request.getPart("avatar");
@@ -184,13 +171,13 @@ public class AccountController {
 		}
 		else {				// 若上传头像，则
 			String filePath = request.getServletContext().getRealPath("/");
-			filePath = filePath + "\\member\\" + id;
+			filePath = filePath + "\\member\\" + user.getId();
 			File file = new File(filePath);
 			if( !file.exists()) {	// 若目录不存在，则创建目录
 				file.mkdirs();
 			}
 			String fileName = part.getSubmittedFileName();
-			String avatar = "member\\" + id + "\\" + fileName;	// 在web根文件夹的相对路径文件
+			String avatar = "member\\" + user.getId() + "\\" + fileName;	// 在web根文件夹的相对路径文件
 			part.write(filePath + "\\" + fileName);
 			user.setAvatar(avatar);
 		}
@@ -199,8 +186,8 @@ public class AccountController {
 		userService.update(user);
 		
 		// 5.返回表示层
-		request.setAttribute("user", user);
-		request.getSession().setAttribute("username", username);//重设会话中的username属性，更新页面右上角的用户名
-		return "r:/account?method=viewUser&id="+id;
+		model.addAttribute("user", user);
+		request.getSession().setAttribute("userName", user.getUsername());//重设会话中的username属性，更新页面右上角的用户名
+		return "redirect:/account/viewUser/"+user.getId();
 	}
 }

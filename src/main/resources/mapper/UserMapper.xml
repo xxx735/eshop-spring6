@@ -23,6 +23,7 @@
 		<result column="password" property="password"/>
 		<result column="email" property="email"/>
 		<result column="phone" property="phone"/>
+		<result column="birthday" property="birthday"/>
 		<result column="avatar" property="avatar"/>
 		<discriminator javaType="int" column="user_type">
 			<!-- 当辨别者字段为1时，代表该记录对应admin实例 -->
@@ -36,7 +37,7 @@
 	</resultMap>
 	
 	<insert id="addUser">
-		insert into user(username,password,phone,email,avatar) values(#{username},#{password},#{phone},#{email},#{avatar})
+		insert into user(username,password,phone,email,birthday,avatar) values(#{username},#{password},#{phone},#{email},#{birthday},#{avatar})
 	</insert>
 	
 	<update id="update">
@@ -46,7 +47,7 @@
 			username=#{username}, 
 			<!-- 当password不为null，增加对password的更新 -->
 			<if test="password!=null">password=#{password}, </if>
-			phone=#{phone},email=#{email}, 
+			phone=#{phone},email=#{email}, birthday=#{birthday},
 			<!-- 当avatar不为null，增加对avatar的更新 -->
 			<if test="avatar != null">avatar=#{avatar} </if>
 		</set> 
