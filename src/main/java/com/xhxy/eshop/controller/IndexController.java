@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,18 +27,26 @@ import com.xhxy.eshop.service.Impl.mybatis.CartServiceImpl;
 import com.xhxy.eshop.service.Impl.mybatis.CategoryServiceImpl;
 import com.xhxy.eshop.service.Impl.mybatis.ProductServiceImpl;
 import com.xhxy.eshop.service.Impl.mybatis.UserServiceImpl;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-@WebServlet("/index")
-public class IndexController  extends BaseServlet {
+@Controller
+public class IndexController   {
 
-	private CategoryService categoryService = new CategoryServiceImpl();
-	private ProductService productService = new ProductServiceImpl();
-	private BlogService blogService = new BlogServiceImpl();
-	private UserService userService = new UserServiceImpl();
-	private CartService cartService = new CartServiceImpl();
-	private List<Product> findAll;
-	
-	public String index(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@Resource
+	private CategoryService categoryService ;
+	@Resource
+	private ProductService productService ;
+	@Resource
+	private BlogService blogService ;
+	@Resource
+	private UserService userService ;
+	@Resource
+	private CartService cartService ;
+
+	@GetMapping("/index")
+	public String index(Model model) throws IOException {
 		
 		// 获取全部的顶层分类:用于左侧菜单
 		List<Category> topCategoryList = categoryService.findTopCategory();
@@ -57,16 +66,16 @@ public class IndexController  extends BaseServlet {
 		props.load(in);
 		
 		// 设置model属性
-		request.setAttribute("topCategoryList", topCategoryList);
-		request.setAttribute("hotProductList", hotProductList);
-		request.setAttribute("latestProductList", latestProductList);
-		request.setAttribute("blogList", blogList);
+		model.addAttribute("topCategoryList", topCategoryList);
+		model.addAttribute("hotProductList", hotProductList);
+		model.addAttribute("latestProductList", latestProductList);
+		model.addAttribute("blogList", blogList);
 		
-		request.setAttribute("allRequest", props.getProperty("allRequest"));
-		request.setAttribute("indexRequest", props.getProperty("indexRequest"));
-		request.setAttribute("onlineUser", props.getProperty("onlineUser"));
-		request.setAttribute("allUser", props.getProperty("allUser"));
+		model.addAttribute("allRequest", props.getProperty("allRequest"));
+		model.addAttribute("indexRequest", props.getProperty("indexRequest"));
+		model.addAttribute("onlineUser", props.getProperty("onlineUser"));
+		model.addAttribute("allUser", props.getProperty("allUser"));
 						
-		return "index.jsp";
+		return "index";
 	}
 }

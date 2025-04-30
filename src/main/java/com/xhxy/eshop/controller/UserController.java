@@ -1,22 +1,14 @@
 package com.xhxy.eshop.controller;
 
-import java.io.IOException;
 
 import jakarta.annotation.Resource;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import com.xhxy.eshop.entity.Cart;
 import com.xhxy.eshop.entity.User;
 import com.xhxy.eshop.service.CartService;
 import com.xhxy.eshop.service.UserService;
-import com.xhxy.eshop.service.Impl.mybatis.CartServiceImpl;
-import com.xhxy.eshop.service.Impl.jdbc.UserServiceImpl;
 import jakarta.servlet.http.HttpSession;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

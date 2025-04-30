@@ -6,10 +6,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>首页</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
-	<link href="assets/css/eshop.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/eshop.css" rel="stylesheet" />
 </head>
 
 <body class="bg-light-4">
@@ -47,7 +47,7 @@
                         </ul>
                       </li>
                       <li class="mega-menu-col col-lg-7">
-                        <div class="header-banner2"> <img src="assets/images/electronic/product-ad/04.jpg" alt="menu_banner">
+                        <div class="header-banner2"> <img src="${pageContext.request.contextPath}/assets/images/electronic/product-ad/04.jpg" alt="menu_banner">
                           <div class="banne_info">
                             <h6>优惠20%</h6>
                             <h4>笔记本电话</h4>
@@ -64,7 +64,7 @@
         </div>
         <div class="col-lg-9">
           <div class="banner-slider banner-3 owl-carousel no-pb h-100" data-dots="true" data-margin="5">
-            <div class="item" data-bg-img="assets/images/electronic/bg/01.jpg">
+            <div class="item" data-bg-img="${pageContext.request.contextPath}/assets/images/electronic/bg/01.jpg">
               <div class="container h-100">
                 <div class="row h-100 align-items-center">
                   <div class="col py-8 pl-0">
@@ -77,7 +77,7 @@
                 </div>
               </div>
             </div>
-            <div class="item" data-bg-img="assets/images/electronic/bg/02.jpg">
+            <div class="item" data-bg-img="${pageContext.request.contextPath}/assets/images/electronic/bg/02.jpg">
               <div class="container h-100">
                 <div class="row h-100 align-items-center">
                   <div class="col py-8 pl-0">

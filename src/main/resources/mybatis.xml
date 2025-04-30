@@ -22,7 +22,7 @@
         <property name="mapperLocations">
             <array>
                 <value>classpath:mapper/*.xml</value>
-                <value>classpath*:com/xhxy/eshop/mapper/*.xml</value>
+<!--                <value>classpath*:com/xhxy/eshop/mapper/*.xml</value>-->
             </array>
         </property>
         <!-- 配置分页插件 -->
