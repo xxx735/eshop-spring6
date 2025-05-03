@@ -5,5 +5,7 @@
 <configuration>
   <settings>
     <setting name="logImpl" value="STDOUT_LOGGING"/>
+      <!-- 设置日志实现为 SLF4J -->
+      <setting name="logImpl" value="SLF4J"/>
   </settings>
 </configuration>

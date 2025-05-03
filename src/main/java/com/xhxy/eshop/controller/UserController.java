@@ -3,6 +3,7 @@ package com.xhxy.eshop.controller;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import com.xhxy.eshop.entity.Cart;
 import com.xhxy.eshop.entity.User;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.RequestContext;
 
 /**
  * 用户Servlet
@@ -97,15 +99,15 @@ public class UserController {
 	}
 
 	@PostMapping("/signup")
-	public String signup(User user, Model model)  {
+	public String signup(User user, Model model, HttpServletRequest request)  {
 
-				
+
+		var requestContext = new RequestContext(request);
 		// 调用UserDao插入新用户
 		if(userService.addUser(user) > 0) {
 			return "login";
 		}else {
-			String message =  "注册失败，请重新输入";
-			model.addAttribute("message", message);
+			model.addAttribute("message",requestContext.getMessage("signup_failure"));
 					
 			return "signup";
 		}

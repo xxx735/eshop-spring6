@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
 
-    <Configuration status="WARN">
-        <!-- 指定日志输出到哪里 -->
-        <Appenders>
-            <Console name="Console" target="SYSTEM_OUT">
-                <PatternLayout charset="UTF-8" pattern="%5p [%t] %logger{36} %m%n"/>
-            </Console>
-        </Appenders>
-        <Loggers>
-            <!-- 定义全局的根日志 -->
-            <Root level="error">
-                <AppenderRef ref="Console"/>
-            </Root>
-            <!-- level可以定义info debug warning、error这些级别 -->
-            <Logger name="com.xhxy.eshop.mapper" level="debug"/>
-        </Loggers>
-    </Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- 根日志级别 -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+        <!-- MyBatis 日志级别 -->
+        <Logger name="org.mybatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- 数据库连接池日志 -->
+        <Logger name="com.zaxxer.hikari" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Spring 日志 -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- 应用包名 -->
+        <Logger name="com.xhxy.eshop" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+    </Loggers>
+</Configuration>

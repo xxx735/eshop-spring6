@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>常见问题</title>
-	<link rel="shortcut icon" href="assets/images/favicon.png" />
-	<link href="assets/css/theme-plugin.css" rel="stylesheet" />
-	<link href="assets/css/theme.min.css" rel="stylesheet" />
+	<title><spring:message code='faq' /></title>
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -24,13 +25,13 @@
 		  <div class="container">
 		    <div class="row align-items-center">
 		      <div class="col-md-6">
-		        <h1 class="h2 mb-0">常见问题</h1>
+		        <h1 class="h2 mb-0"><spring:message code='faq' /></h1>
 		      </div>
 		      <div class="col-md-6 mt-3 mt-md-0">
 		        <nav aria-label="breadcrumb">
 		          <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-		            <li class="breadcrumb-item"><a class="link-title" href="index.jsp">首页</a></li>
-		            <li class="breadcrumb-item active text-primary" aria-current="page">常见问题</li>
+		            <li class="breadcrumb-item"><a class="link-title" href="${pageContext.request.contextPath}/index"><spring:message code='index' /></a></li>
+		            <li class="breadcrumb-item active text-primary" aria-current="page"><spring:message code='faq' /></li>
 		          </ol>
 		        </nav>
 		      </div>
