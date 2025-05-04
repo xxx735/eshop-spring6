@@ -13,5 +13,7 @@ public interface UserService {
 	public Integer update(User user);
 	// 用id获取该用户的密码
 	public String findPasswordById(int id);
-	
+
+	//已有某个username吗
+	public Boolean existUsername(String username);
 }

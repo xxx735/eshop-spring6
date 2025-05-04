@@ -9,6 +9,7 @@
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/bootstrapValidator.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -82,7 +83,7 @@
 							<div class="card border-0">
 	                           <h5 class="font-w-6">修改收货地址</h5>
 	                            <div class="card-body">
-	                                <form action="${pageContext.request.contextPath}/account/updateAddress" method="post" name="enq">
+	                                <form action="${pageContext.request.contextPath}/account/updateAddress" method="post" id="address-edit-form" name="enq">
 	                                	<input name="id" type="hidden" value="${address.id}">
 	                                	<input name="userId" type="hidden" value="${id}">
 	                                    <div class="row">
@@ -119,7 +120,8 @@
 	</div>
 	<!--body content end--> 
 
-	<%@ include file="footer.jsp" %>	  
+	<%@ include file="footer.jsp" %>
+	<script src="${pageContext.request.contextPath}/assets/js/address-edit-validator.js" ></script>
 	</div>
 </body>
 </html>

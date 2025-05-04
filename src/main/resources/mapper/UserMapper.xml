@@ -57,5 +57,9 @@
 	<delete id="delete">
 		delete from address where id = #{id}
 	</delete>
+
+	<select id="existUsername" parameterType="java.lang.String" resultType="boolean">
+		SELECT EXISTS(SELECT 1 FROM user WHERE username = #{username})
+	</select>
 	
 </mapper>

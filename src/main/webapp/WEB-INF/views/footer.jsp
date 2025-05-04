@@ -138,6 +138,7 @@
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.dd.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/validator.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/wow.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrapValidator.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.elevatezoom.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/theme-script.js"></script>
 	<!-- inject js end -->

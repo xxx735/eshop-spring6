@@ -1,6 +1,7 @@
 package com.xhxy.eshop.controller;
 
 
+import com.xhxy.eshop.validator.UserValidator;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,8 +11,12 @@ import com.xhxy.eshop.entity.User;
 import com.xhxy.eshop.service.CartService;
 import com.xhxy.eshop.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContext;
 
@@ -30,6 +35,8 @@ public class UserController {
 	private CartService cartService ;
 
 
+	@Autowired
+	private UserValidator userValidator;
 	@GetMapping("/{url}")
 	public String url(@PathVariable String url){
 		return url;
@@ -98,10 +105,18 @@ public class UserController {
 		
 	}
 
+	@InitBinder  // 初始化绑定器
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(userValidator);
+	}
+
 	@PostMapping("/signup")
-	public String signup(User user, Model model, HttpServletRequest request)  {
+	public String signup(@Validated User user,  BindingResult result,Model model,
+						 HttpServletRequest request)  {
 
-
+		if (result.getErrorCount() > 0 ) {   // 校验发现错误，则
+			return "signup";
+		}
 		var requestContext = new RequestContext(request);
 		// 调用UserDao插入新用户
 		if(userService.addUser(user) > 0) {

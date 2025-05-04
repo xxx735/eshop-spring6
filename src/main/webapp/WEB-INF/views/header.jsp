@@ -24,7 +24,7 @@
               </div>
             </div>
             <ul class="header_list">
-              <c:choose>
+              <c:choose> 
 				   <c:when test="${userName == null}">
 				      <li><a href="${pageContext.request.contextPath}/user/login"><i class="icon fa fa-user"></i><span><spring:message code='login' /></span></a></li>
 				      <li><a href="${pageContext.request.contextPath}/user/signup"><i class="icon fa fa-user-plus"></i><span><spring:message code='signup' /></span></a></li>

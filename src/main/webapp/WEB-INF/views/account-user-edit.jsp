@@ -10,6 +10,7 @@
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/bootstrapValidator.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -83,7 +84,7 @@
 							<div class="card border-0">
 	                           <h5 class="font-w-6">修改账号信息</h5>
 	                            <div class="card-body">
-	                                <form action="${pageContext.request.contextPath}/account/updateUser" method="post" name="enq" enctype="multipart/form-data">
+	                                <form action="${pageContext.request.contextPath}/account/updateUser" method="post" id= "user-edit-form"  name="enq" enctype="multipart/form-data">
 	                                	<input name="id" type="hidden" value="${user.id}">
 	                                    <div class="row">
 	                                        <div class="form-group col-md-12">
@@ -137,7 +138,8 @@
 	</div>
 	<!--body content end--> 
 
-	<%@ include file="footer.jsp" %>	  
+	<%@ include file="footer.jsp" %>
+	<script src="${pageContext.request.contextPath}/assets/js/user-edit-validator.js" ></script>
 	</div>
 </body>
 </html>

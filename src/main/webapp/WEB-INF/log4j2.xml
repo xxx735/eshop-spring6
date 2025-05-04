@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+    <Appenders>
+        <Console name="CONSOLE">
+            <PatternLayout pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} | %highlight{%level}{FATAL=red, ERROR=red, WARN=blue, INFO=white, DEBUG=Magenta, TRACE=Magenta} | [%t] %n%m %n" disableAnsi="false"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/main.log"
+                     filePattern="logs/main_%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%n%d{yyyy-MM-dd HH:mm:ss.SSS} | %level | [%t] %n%m %n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

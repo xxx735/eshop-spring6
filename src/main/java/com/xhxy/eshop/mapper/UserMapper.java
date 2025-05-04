@@ -21,4 +21,7 @@ public interface UserMapper {
 	
 	// 查询admin管理员
 	public Admin findAdminById(int id);
+
+	//查询某个username是否存在
+	public Boolean existUsername(String username);
 }

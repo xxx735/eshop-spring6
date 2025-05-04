@@ -9,6 +9,7 @@
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
+	<link href="${pageContext.request.contextPath}/assets/css/bootstrapValidator.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -117,7 +118,7 @@
 								<div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="addAddressModalLabel" aria-hidden="true">
 								    <div class="modal-dialog">
 								        <div class="modal-content">
-										    <form action="${pageContext.request.contextPath}/account/addAddress" method="post">
+										    <form action="${pageContext.request.contextPath}/account/addAddress" method="post" id="address-edit-form">
 										    	<input name="userId" value="${userId}" type="hidden"/>
 									            <div class="modal-header">
 									                <h5 class="modal-title">新增收货地址</h5>
@@ -196,7 +197,8 @@
 	</div>
 	<!--body content end--> 
 
-	<%@ include file="footer.jsp" %>	  
+	<%@ include file="footer.jsp" %>
+	<script src="${pageContext.request.contextPath}/assets/js/address-edit-validator.js" ></script>
 	</div>
 </body>
 </html>
