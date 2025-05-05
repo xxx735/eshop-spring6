@@ -30,7 +30,7 @@
 				      <li><a href="${pageContext.request.contextPath}/user/signup"><i class="icon fa fa-user-plus"></i><span><spring:message code='signup' /></span></a></li>
 				   </c:when>
 				   <c:otherwise>
-				   		<li><a href="${pageContext.request.contextPath}/account"><i class="icon fa fa-user"></i><span>${userName}</span></a></li>
+				   		<li><a href="${pageContext.request.contextPath}/account/dashboard"><i class="icon fa fa-user"></i><span>${userName}</span></a></li>
               			<li><a href="${pageContext.request.contextPath}/cart/view"><i class="icon fa fa-shopping-cart"></i><span><spring:message code='shoppingcart' /></span></a></li>
 				        <li><a href="${pageContext.request.contextPath}/user/logout"><i class="icon fa fa-power-off"></i><span><spring:message code='logout' /></span></a></li>
 				   </c:otherwise>
@@ -74,7 +74,7 @@
                   <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/category/all"><spring:message code='category' /></a></li>
                   <li class="nav-item"> <a class="nav-link" href="miaosha.jsp"><spring:message code='miaosha' /></a></li>
                   <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/blog/list"><spring:message code='tuijian' /></a></li>
-                  <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/faq"><spring:message code='faq' /></a></li>
+                  <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/faq/index"><spring:message code='faq' /></a></li>
                   <li class="nav-item"> <a class="nav-link" href="#"> </a></li>
                 </ul>
               </div>

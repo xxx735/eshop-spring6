@@ -84,7 +84,7 @@
 							<div class="card border-0">
 	                           <h5 class="font-w-6">修改账号信息</h5>
 	                            <div class="card-body">
-	                                <form action="${pageContext.request.contextPath}/account/updateUser" method="post" id= "user-edit-form"  name="enq" enctype="multipart/form-data">
+	                                <form action="${pageContext.request.contextPath}/account/updateUser" enctype="multipart/form-data" method="post" id= "user-edit-form"  name="enq" >
 	                                	<input name="id" type="hidden" value="${user.id}">
 	                                    <div class="row">
 	                                        <div class="form-group col-md-12">
@@ -93,8 +93,8 @@
 	                                         </div>
 	                                         <div class="form-group col-md-12">
 	                                        	<label>用户头像 <span class="required">（不选择，则维持原头像）</span></label>
-	                                            <input class="form-control" name="avatar" type="file"/>
-	                                            <img src="${user.avatar}">
+	                                            <input class="form-control" name="avatarFile" type="file"/>
+	                                            <img src="${pageContext.request.contextPath}/${user.avatar}">
 	                                         </div>
 	                                        <div class="form-group col-md-12">
 	                                        	<label>手机号 <span class="required">*</span></label>

@@ -90,7 +90,7 @@
 	                                         </div>
 	                                         <div class="form-group col-md-12">
 	                                        	<label>用户头像 :</label><br>
-	                                            <img src="${user.avatar}">
+	                                            <img src="${pageContext.request.contextPath}/${user.avatar}">
 	                                         </div>
 	                                        <div class="form-group col-md-12">
 	                                        	<label>手机号 : ${user.phone}</label>

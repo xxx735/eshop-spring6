@@ -1,5 +1,7 @@
 package com.xhxy.eshop.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -12,6 +14,7 @@ public class User {
 	private String password;	// 密码
 	private String email;		// 邮箱
 	private String phone;		// 手机号码
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;      // 生日
 	private String avatar;		// 头像文件的路径
 	

@@ -13,6 +13,16 @@
       <param-value>classpath:springmvc.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
+    <multipart-config>
+      <!-- 指定上传文件的临时目录 -->
+      <location>d:/</location>
+
+      <!-- 上传文件最大2MB -->
+      <max-file-size>2097152</max-file-size>
+
+      <!-- 上传文件整个请求不超过4MB -->
+      <max-request-size>4194304</max-request-size>
+    </multipart-config>
   </servlet>
 
 <!--  <listener>-->

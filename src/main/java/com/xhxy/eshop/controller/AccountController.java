@@ -22,10 +22,8 @@ import com.xhxy.eshop.service.OrderService;
 import com.xhxy.eshop.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/account")
@@ -148,11 +146,12 @@ public class AccountController {
 	}
 	// ------ 用户信息 -> 更改操作-----
 	@PostMapping ("/updateUser")
-	public String updateUser(User user,String newPassword, Model model ,HttpServletRequest request) throws ServletException, IOException {
+	public String updateUser(User user, @RequestParam("newpassword") String newPassword,
+							 MultipartFile avatarFile ,Model model , HttpServletRequest request) throws ServletException, IOException {
 		// 2.要不要替换密码
-		String currPassword = userService.findPasswordById(user.getId());
-		String password = user.getPassword();
-		if(password.isBlank()) {
+		String currPassword = userService.findPasswordById(user.getId());  //数据库中的密码
+		String password = user.getPassword();  //用户提交的原密码
+		if(password.isBlank()) {    //未输原密码---->维持原密码
 			password = null;	// 设为null，便于mapper中进行动态SQL处理(条件update)
 		}
 		else if(password != null && !password.equals(currPassword)){	// 输入的原密码不正确
@@ -162,23 +161,23 @@ public class AccountController {
 		else if(password !=null && password.equals(currPassword) && newPassword != null && (!newPassword.isEmpty())) {
 			password = newPassword;
 		}
+		user.setPassword(password); //更换为新密码
 		
 		// 4.上传头像文件的处理
-		Part part = request.getPart("avatar");
-		if(part.getSize() == 0) {	// 若没上传头像，则保持原头像不变
+		if(avatarFile == null || avatarFile.getSize() == 0) {	// 若没上传头像，则保持原头像不变
 //			user.setAvatar(userService.findById(id).getAvatar());	
 			user.setAvatar(null);// 设为null，便于mapper中进行动态SQL处理(条件update)
 		}
 		else {				// 若上传头像，则
-			String filePath = request.getServletContext().getRealPath("/");
-			filePath = filePath + "\\member\\" + user.getId();
+			String filePath = request.getServletContext().getRealPath("/upload");
+			filePath = filePath + "\\" + user.getId();  //upload/3/
 			File file = new File(filePath);
 			if( !file.exists()) {	// 若目录不存在，则创建目录
 				file.mkdirs();
 			}
-			String fileName = part.getSubmittedFileName();
-			String avatar = "member\\" + user.getId() + "\\" + fileName;	// 在web根文件夹的相对路径文件
-			part.write(filePath + "\\" + fileName);
+			String fileName = avatarFile.getOriginalFilename();  // member1.jpg
+			avatarFile.transferTo(new File(filePath + "\\" + fileName));  // upload/3/member1.jpg
+			String avatar = "upload\\" + user.getId() + "\\" + fileName;	// 在web根文件夹的相对路径文件
 			user.setAvatar(avatar);
 		}
 		
@@ -187,7 +186,6 @@ public class AccountController {
 		
 		// 5.返回表示层
 		model.addAttribute("user", user);
-		request.getSession().setAttribute("userName", user.getUsername());//重设会话中的username属性，更新页面右上角的用户名
 		return "redirect:/account/viewUser/"+user.getId();
 	}
 }

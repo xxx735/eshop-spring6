@@ -36,6 +36,10 @@
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
               p:paramName="locale"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/account/**"/>
+            <bean class="com.xhxy.eshop.interceptor.AuthorizationInterceptor" />
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 7.1 Session中的Locale解析器 -->
@@ -44,6 +48,10 @@
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
           p:cookieName="clientlanguage"
           p:cookieMaxAge="3600"/>
+
+    <!-- 12.配置StandardServletMultipartResolver作为MultipartResolver -->
+    <!-- 表明直接使用Servlet 3.0的文件上传支持 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 
     <!-- mybatis配置 -->
     <import resource="classpath:mybatis.xml"/>
