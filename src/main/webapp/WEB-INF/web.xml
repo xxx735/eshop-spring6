@@ -25,10 +25,6 @@
     </multipart-config>
   </servlet>
 
-<!--  <listener>-->
-<!--    <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>-->
-<!--  </listener>-->
-
 
 
   <servlet-mapping>

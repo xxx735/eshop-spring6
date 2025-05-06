@@ -38,6 +38,7 @@
               p:paramName="locale"/>
         <mvc:interceptor>
             <mvc:mapping path="/account/**"/>
+            <mvc:mapping path="/cart/**"/>
             <bean class="com.xhxy.eshop.interceptor.AuthorizationInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
@@ -52,7 +53,6 @@
     <!-- 12.配置StandardServletMultipartResolver作为MultipartResolver -->
     <!-- 表明直接使用Servlet 3.0的文件上传支持 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
-
     <!-- mybatis配置 -->
     <import resource="classpath:mybatis.xml"/>
 </beans>
