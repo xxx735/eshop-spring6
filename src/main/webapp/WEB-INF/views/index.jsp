@@ -5,7 +5,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>首页</title>
+	<title>首</title>
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme-plugin.css" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/assets/css/theme.min.css" rel="stylesheet" />
